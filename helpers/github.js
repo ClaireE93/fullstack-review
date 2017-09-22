@@ -1,5 +1,6 @@
 const request = require('request');
 const config = require('../config.js');
+const dbHelpers = require('../database/index');
 
 let getReposByUsername = (username, callback) => {
   let options = {
@@ -12,7 +13,17 @@ let getReposByUsername = (username, callback) => {
     }
   };
 
-  request(options, callback);
+  request(options, (err, response, body) => {
+    dbHelpers.save(body)
+    .then(() => {
+      console.log('save successful');
+      callback(err, response, body);
+    })
+    .catch((error) => {
+      console.error('database save error', error);
+      callback(error);
+    })
+  });
 };
 
 module.exports.getReposByUsername = getReposByUsername;

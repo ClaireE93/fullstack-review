@@ -13,7 +13,6 @@ app.post('/repos', function (req, res) {
   // save the repo information in the database
   const username = req.body.username;
   const callback = (err, response, body) => {
-    console.log('body is', body);
     if (err) {
       res.statusCode = 404;
       res.end(err.toString());

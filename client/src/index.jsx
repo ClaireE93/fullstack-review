@@ -11,6 +11,8 @@ class App extends React.Component {
       repos: []
     }
 
+    this.fetchRepos();
+
   }
 
   search (term) {
@@ -22,12 +24,17 @@ class App extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify({ username }),
       success: (data) => {
-        console.log('Post successful', data);
+        console.log('data is', data);
+        //TODO: Add neccessary info to this.state.repos
       },
       error: (err) => {
         console.error('Post FAILED', err);
       }
     });
+  }
+
+  fetchRepos() {
+    //TODO: Fetch on init and set repos state
   }
 
   render () {
