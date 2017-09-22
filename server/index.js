@@ -19,7 +19,6 @@ app.post('/repos', function (req, res) {
       res.end(err.toString());
     } else {
       res.statusCode = 200;
-      console.log('data to send is', data);
       res.end(JSON.stringify(data)); //TODO: Send back success message
     }
   };
@@ -34,7 +33,6 @@ app.get('/repos', function (req, res) {
       res.end(err.toString());
     } else {
       res.statusCode = 200;
-      console.log('data to send is', body);
       res.end(JSON.stringify(body)); //TODO: Send back success message
     }
   };

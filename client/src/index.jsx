@@ -24,8 +24,7 @@ class App extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify({ username }),
       success: (data) => {
-        console.log('data is', data);
-        //TODO: Add neccessary info to this.state.repos
+        this.fetchRepos();
       },
       error: (err) => {
         console.error('Post FAILED', err);
@@ -39,8 +38,11 @@ class App extends React.Component {
       type: 'GET',
       contentType: 'application/json',
       success: (data) => {
-        console.log('FETCHED data is', data);
-        //TODO: Add neccessary info to this.state.repos
+        const repoArr = JSON.parse(data);
+        const curRepos = this.state.repos;
+        // this.setState({repos: curRepos.concat(repoArr)});
+        console.log('repo arr is', repoArr);
+        this.setState({repos: repoArr});
       },
       error: (err) => {
         console.error('Post FAILED', err);
