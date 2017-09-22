@@ -46,7 +46,6 @@ class App extends React.Component {
       success: (data) => {
         const repoArr = JSON.parse(data);
         const curRepos = this.state.repos;
-        // this.setState({repos: curRepos.concat(repoArr)});
         console.log('repo arr is', repoArr);
         this.setState({repos: repoArr});
       },
@@ -59,8 +58,8 @@ class App extends React.Component {
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
+      <RepoList repos={this.state.repos}/>
     </div>)
   }
 }

@@ -14,14 +14,20 @@ let getReposByUsername = (username, callback) => {
   };
 
   request(options, (err, response, body) => {
-    dbHelpers.save(body)
-    .then((data) => {
-      callback(err, response, body, data);
-    })
-    .catch((error) => {
-      console.error('database save error', error);
+    const parsedBody = JSON.parse(body);
+    if (parsedBody.length) {
+      dbHelpers.save(parsedBody)
+      .then((data) => {
+        callback(err, data);
+      })
+      .catch((error) => {
+        console.error('database save error', error);
+        callback(error);
+      })
+    } else {
+      const error = {statusCode: '404 Not Found'};
       callback(error);
-    })
+    }
   });
 };
 

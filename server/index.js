@@ -8,18 +8,14 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json())
 
 app.post('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should take the github username provided
-  // and get the repo information from the github API, then
-  // save the repo information in the database
   const username = req.body.username;
-  const callback = (err, response, body, data) => {
+  const callback = (err, data) => { //TODO: Refactor to use ONE helper function for this and save callback
     if (err) {
       res.statusCode = 404;
       res.end(err.toString());
     } else {
       res.statusCode = 200;
-      res.end(JSON.stringify(data)); //TODO: Send back success message
+      res.end(JSON.stringify(data));
     }
   };
 
@@ -27,13 +23,13 @@ app.post('/repos', function (req, res) {
 });
 
 app.get('/repos', function (req, res) {
-  const callback = (err, response, body) => {
+  const callback = (err, body) => { //TODO: Refactor to use ONE helper function for this and post callback
     if (err) {
       res.statusCode = 404;
       res.end(err.toString());
     } else {
       res.statusCode = 200;
-      res.end(JSON.stringify(body)); //TODO: Send back success message
+      res.end(JSON.stringify(body));
     }
   };
 
