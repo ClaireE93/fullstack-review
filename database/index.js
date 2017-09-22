@@ -21,6 +21,7 @@ let repoSchema = mongoose.Schema({
   html_url: String,
   url: String,
   description: String,
+  dateAdded: String,
 });
 let Repo = mongoose.model('Repo', repoSchema);
 
@@ -35,8 +36,9 @@ const save = (rawObj) => {
   parsedArr.forEach((repo) => {
     const { name, html_url, url, description } = repo;
     const gitId = repo.id;
+    const dateAdded = (new Date()).toString();
     promiseArr.push(new Promise((resolve, reject) => {
-      const entry = new Repo({ name, html_url, url, description, gitId });
+      const entry = new Repo({ name, html_url, url, description, gitId, dateAdded });
       entry.save((err, entry) => {
         if (err) {
           reject(err);
@@ -57,9 +59,15 @@ const save = (rawObj) => {
 }
 
 const fetchRepos = (callback) => {
-  Repo.find((err, repos) => {
+  //NOTE: Delete Repo.remove when data should propogate and done with testing
+  Repo.find().limit(25).sort('-dateAdded').exec((err, repos) => {
     callback(err, null, repos);
-  });
+  })
+  // Repo.remove((err) => {
+  //   Repo.find((err, repos) => {
+  //     callback(err, null, repos);
+  //   });
+  // });
 };
 
 module.exports.save = save;
