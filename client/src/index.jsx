@@ -25,7 +25,7 @@ class App extends React.Component {
       data: JSON.stringify({ username }),
       success: (data) => {
         const parsed = JSON.parse(data);
-        console.log('data is', parsed);
+        // console.log('data is', parsed);
         const newArr = parsed.values;
         const tot = parsed.repoCount;
         const dif = 25 - tot;
@@ -46,7 +46,7 @@ class App extends React.Component {
       success: (data) => {
         const repoArr = JSON.parse(data);
         const curRepos = this.state.repos;
-        console.log('repo arr is', repoArr);
+        // console.log('repo arr is', repoArr);
         this.setState({repos: repoArr});
       },
       error: (err) => {
