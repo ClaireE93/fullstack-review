@@ -62,7 +62,7 @@ const fetchRepos = (callback) => {
   //NOTE: Delete Repo.remove when data should propogate and done with testing
   Repo.find().limit(25).sort('-dateAdded').exec((err, repos) => {
     callback(err, null, repos);
-  })
+  });
   // Repo.remove((err) => {
   //   Repo.find((err, repos) => {
   //     callback(err, null, repos);

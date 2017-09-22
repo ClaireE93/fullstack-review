@@ -24,7 +24,13 @@ class App extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify({ username }),
       success: (data) => {
-        this.fetchRepos();
+        const parsed = JSON.parse(data);
+        console.log('data is', parsed);
+        const newArr = parsed.values;
+        const tot = parsed.repoCount;
+        const dif = 25 - tot;
+        const newStateArr = dif >= 0 ? newArr.concat(this.state.repos.slice(0, dif)) : newArr.slice(0, dif);
+        this.setState({repos: newStateArr});
       },
       error: (err) => {
         console.error('Post FAILED', err);
