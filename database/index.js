@@ -30,6 +30,8 @@ const save = (rawObj) => {
   // console.log('raw obj is', JSON.parse(rawObj));
   const parsedArr = JSON.parse(rawObj);
   const promiseArr = [];
+  const username = parsedArr[0].name;
+  let repoCount = parsedArr.length;
   parsedArr.forEach((repo) => {
     const { name, html_url, url, description } = repo;
     const gitId = repo.id;
@@ -47,33 +49,18 @@ const save = (rawObj) => {
 
   return Promise.all(promiseArr)
                 .then((values) => {
-                  return values;
+                  return { values, username, repoCount };
                 })
                 .catch((reason) => {
                   // console.error('error in db promsises', reason);
                 });
-
-
-
-  // const { name, html_url, url, description } = parsedObj;
-  // const gitId = parsedObj.id;
-  // console.log('OBJECT TO SAVE:', { name, html_url, url, description, gitId });
-
-  // return new Promise((resolve, reject) => {
-  //   const entry = new Repo({ name, html_url, url, description, gitId });
-  //   entry.save((err, entry) => {
-  //     if (err) {
-  //       reject(err);
-  //     } else {
-  //       resolve(entry);
-  //     }
-  //   });
-  // });
 }
 
-const fetchEntries = () => {
-
+const fetchRepos = (callback) => {
+  Repo.find((err, repos) => {
+    callback(err, null, repos);
+  });
 };
 
 module.exports.save = save;
-module.exports.fetchEntries = fetchEntries;
+module.exports.fetchRepos = fetchRepos;

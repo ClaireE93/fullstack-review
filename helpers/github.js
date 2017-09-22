@@ -15,9 +15,8 @@ let getReposByUsername = (username, callback) => {
 
   request(options, (err, response, body) => {
     dbHelpers.save(body)
-    .then(() => {
-      console.log('save successful');
-      callback(err, response, body);
+    .then((data) => {
+      callback(err, response, body, data);
     })
     .catch((error) => {
       console.error('database save error', error);

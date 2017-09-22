@@ -34,7 +34,18 @@ class App extends React.Component {
   }
 
   fetchRepos() {
-    //TODO: Fetch on init and set repos state
+    $.ajax({
+      url: 'http://localhost:1128/repos',
+      type: 'GET',
+      contentType: 'application/json',
+      success: (data) => {
+        console.log('FETCHED data is', data);
+        //TODO: Add neccessary info to this.state.repos
+      },
+      error: (err) => {
+        console.error('Post FAILED', err);
+      }
+    });
   }
 
   render () {
